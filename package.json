@@ -1,0 +1,23 @@
+{
+  "name": "mongoosejs2",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pbxyz/MongooseJS2.git"
+  },
+  "author": "PBXYZ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pbxyz/MongooseJS2/issues"
+  },
+  "homepage": "https://github.com/pbxyz/MongooseJS2#readme",
+  "dependencies": {
+    "mongoose": "^5.12.14"
+  }
+}
