@@ -1,4 +1,4 @@
-export const passGen = function (bloc, char, num, wcase, sep) {
+export const passGen = (bloc, char, num, wcase, sep) => {
 
     var alpha = "abcdefghijklmnopqrstuwxyz",
         sepChar = ['-', '.', '_', '@', ''],

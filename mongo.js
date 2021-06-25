@@ -5,6 +5,7 @@ export default async () => {
   await mongoose.connect(mongoPath, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false
   })
 
   return mongoose

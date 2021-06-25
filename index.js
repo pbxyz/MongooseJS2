@@ -9,7 +9,9 @@ const connectToMongoDB = async () => {
 
       // await opsWithDBs.saveUser()
       // await opsWithDBs.findUser()
-      await opsWithDBs.updateUser()
+      // await opsWithDBs.updateUser()
+      // await opsWithDBs.deleteUser()
+      await opsWithDBs.findUpdateUser()
 
     } finally {
       mongoose.connection.close()
@@ -34,7 +36,7 @@ const opsWithDBs = {
   findUser: async () => {
     // const result = await userSchema.find({}) // all docs
     const result = await userSchema.findOne({ username: 'Bob' })
-    console.log('\nResult:\n', result);
+    console.log('\nResult:\n', result)
   },
 
   updateUser: async () => {
@@ -52,6 +54,38 @@ const opsWithDBs = {
     //     password: 'Password1!'
     //   }
     // )
-  }
+  },
+
+  deleteUser: async () => {
+    await userSchema.deleteMany(
+      {
+        email: 'test@email.com'
+      }
+    )
+    // await userSchema.deleteOne(
+    //   {
+    //     username: 'Ted'
+    //   }
+    // )
+  },
+
+  findUpdateUser: async () => {
+    const password = 'abc123'
+    const result = await userSchema.findOneAndUpdate(
+      {
+        username: 'Ted'
+      },
+      {
+        email: 'test@email.com',
+        username: 'Ted',
+        password
+      },
+      {
+        upsert: true,
+        new: true
+      }
+    )
+    console.log('\nResult:\n', result)
+  },
 
 }
