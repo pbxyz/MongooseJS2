@@ -1,5 +1,6 @@
 import mongo from './mongo.js'
 import userSchema from './schemas/user-schema.js'
+import { passGen } from "./mylib.js"
 
 const connectToMongoDB = async () => {
   await mongo().then(async (mongoose) => {
@@ -7,7 +8,8 @@ const connectToMongoDB = async () => {
       console.log('Connected to mongodb!')
 
       // await opsWithDBs.saveUser()
-      await opsWithDBs.findUser()
+      // await opsWithDBs.findUser()
+      await opsWithDBs.updateUser()
 
     } finally {
       mongoose.connection.close()
@@ -33,6 +35,23 @@ const opsWithDBs = {
     // const result = await userSchema.find({}) // all docs
     const result = await userSchema.findOne({ username: 'Bob' })
     console.log('\nResult:\n', result);
+  },
+
+  updateUser: async () => {
+    await userSchema.updateOne(
+      {
+        password: 'Password1!'
+      },
+      {
+        password: passGen(3, 5, 5, 1, 0)
+      }
+    )
+
+    // await userSchema.updateMany({},
+    //   {
+    //     password: 'Password1!'
+    //   }
+    // )
   }
 
 }

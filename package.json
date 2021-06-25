@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "mongoDB": "mongod --dbpath \"C:/Program Files/MongoDB/Server/4.0/data/db\" --auth",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
