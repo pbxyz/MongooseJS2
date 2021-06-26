@@ -13,7 +13,8 @@ const connectToMongoDB = async () => {
       // await opsWithDBs.deleteUser()
       // await opsWithDBs.findUpdateUser()
       // await opsWithDBs.editArray()
-      await opsWithDBs.sortLimitUser()
+      // await opsWithDBs.sortLimitUser()
+      await opsWithDBs.timeStampsValid()
 
     } finally {
       mongoose.connection.close()
@@ -122,6 +123,37 @@ const opsWithDBs = {
       .limit(2)
 
     console.log('\nResults:\n', results)
+  },
+
+  timeStampsValid: async () => {
+    const newUser = await new userSchema({
+      email: 'test@email.com',
+      username: 'Tom',
+      password: 'Password1!',
+      updates: 10
+    })
+
+    const valid = await new Promise(resolve => {
+      newUser.validate(err => {
+        if (err) {
+          console.log('ERROR:', err)
+          resolve(false)
+        } else {
+          resolve(true)
+        }
+      })
+    })
+
+    if (valid) {
+      await newUser.save()
+      console.log('Saved new user')
+    }
+
+    // await userSchema.findOneAndUpdate({
+    //   username: 'Tom',
+    // }, {
+    //   updates: 2,
+    // })
   },
 
 }

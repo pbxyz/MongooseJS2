@@ -9,8 +9,15 @@ const userSchema = mongoose.Schema({
     email: reqString,
     username: reqString,
     password: reqString,
-    updates: Number,
+    updates: {
+        type: Number,
+        default: 5,
+        min: 0,
+        max: 10
+    },
     nameHistory: [String],
+}, {
+    timestamps: true
 })
 
 export default mongoose.model('user', userSchema)
