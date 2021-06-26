@@ -12,7 +12,8 @@ const connectToMongoDB = async () => {
       // await opsWithDBs.updateUser()
       // await opsWithDBs.deleteUser()
       // await opsWithDBs.findUpdateUser()
-      await opsWithDBs.editArray()
+      // await opsWithDBs.editArray()
+      await opsWithDBs.sortLimitUser()
 
     } finally {
       mongoose.connection.close()
@@ -111,6 +112,16 @@ const opsWithDBs = {
         // }
       }
     )
+  },
+
+  sortLimitUser: async () => {
+    const results = await userSchema.find({})
+      .sort({
+        updates: -1
+      })
+      .limit(2)
+
+    console.log('\nResults:\n', results)
   },
 
 }
