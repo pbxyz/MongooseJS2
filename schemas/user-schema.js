@@ -5,16 +5,24 @@ const reqString = {
     required: true,
 }
 
+const messagesSchema = mongoose.Schema({
+    userId: reqString,
+    text: reqString
+}, {
+    timestamps: true
+})
+
 const userSchema = mongoose.Schema({
     email: reqString,
     username: reqString,
     password: reqString,
-    updates: {
-        type: Number,
-        default: 5,
-        min: 0,
-        max: 10
-    },
+    messages: [messagesSchema],
+    // messages: {
+    //     type: Number,
+    //     default: 5,
+    //     min: 0,
+    //     max: 10
+    // },
     nameHistory: [String],
 }, {
     timestamps: true

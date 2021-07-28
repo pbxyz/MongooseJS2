@@ -17,7 +17,8 @@ const connectToMongoDB = async () => {
       // await opsWithDBs.sortLimitUser()
       // await opsWithDBs.timeStampsValid()
       // await opsWithDBs.collectionNames()
-      await opsWithDBs.withMany()
+      // await opsWithDBs.withMany()
+      await opsWithDBs.nestedDocuments()
 
     } finally {
       setTimeout(() => { mongoose.connection.close(() => console.log('DB Disconnected')) }, 2500)
@@ -189,6 +190,35 @@ const opsWithDBs = {
         'test 2'
       ]
     })
+  },
+
+  nestedDocuments: async () => {
+    // const email = 'test1@email.com'
+
+    // await new userSchema({
+    //   email,
+    //   username: 'test 1',
+    //   password: 'password',
+    //   messages: [
+    //     {
+    //       userId: email,
+    //       text: 'hello world1'
+    //     },
+    //     {
+    //       userId: email,
+    //       text: 'hello world2'
+    //     },
+    //     {
+    //       userId: email,
+    //       text: 'hello world3'
+    //     },
+    //   ],
+    // }).save()
+
+    const result = await userSchema.findOne({
+      'messages.text': 'hello world2'
+    })
+    console.log('RESULT:', result);
   },
 
 }
