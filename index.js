@@ -1,5 +1,6 @@
 import mongo from './mongo.js'
 import userSchema from './schemas/user-schema.js'
+import messageSchema from './schemas/message-schema.js'
 import { passGen } from "./mylib.js"
 
 const connectToMongoDB = async () => {
@@ -14,10 +15,12 @@ const connectToMongoDB = async () => {
       // await opsWithDBs.findUpdateUser()
       // await opsWithDBs.editArray()
       // await opsWithDBs.sortLimitUser()
-      await opsWithDBs.timeStampsValid()
+      // await opsWithDBs.timeStampsValid()
+      // await opsWithDBs.collectionNames()
+      await opsWithDBs.withMany()
 
     } finally {
-      mongoose.connection.close()
+      setTimeout(() => { mongoose.connection.close(() => console.log('DB Disconnected')) }, 2500)
     }
   })
 }
@@ -154,6 +157,38 @@ const opsWithDBs = {
     // }, {
     //   updates: 2,
     // })
+  },
+
+  collectionNames: async () => {
+    await new messageSchema({ text: 'hello world' })
+      .save()
+  },
+
+  withMany: async () => {
+    // await userSchema.insertMany([
+    //   {
+    //     email: 'test1@email.com',
+    //     username: 'test 1',
+    //     password: 'password',
+    //   },
+    //   {
+    //     email: 'test2@email.com',
+    //     username: 'test 2',
+    //     password: 'password',
+    //   },
+    //   {
+    //     email: 'test3@email.com',
+    //     username: 'test 3',
+    //     password: 'password',
+    //   },
+    // ])
+
+    await userSchema.deleteMany({
+      username: [
+        'test 1',
+        'test 2'
+      ]
+    })
   },
 
 }
