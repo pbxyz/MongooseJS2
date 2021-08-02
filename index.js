@@ -18,7 +18,8 @@ const connectToMongoDB = async () => {
       // await opsWithDBs.timeStampsValid()
       // await opsWithDBs.collectionNames()
       // await opsWithDBs.withMany()
-      await opsWithDBs.nestedDocuments()
+      // await opsWithDBs.nestedDocuments()
+      await opsWithDBs.findQueries()
 
     } finally {
       setTimeout(() => { mongoose.connection.close(() => console.log('DB Disconnected')) }, 2500)
@@ -220,5 +221,21 @@ const opsWithDBs = {
     })
     console.log('RESULT:', result);
   },
+
+  findQueries: async () => {
+    // await new userSchema({
+    //   email: 'test1@email.com',
+    //   username: 'test 1',
+    //   password: 'password',
+    //   level: 10
+    // }).save()
+
+    const result = await userSchema.find({
+      level: {
+        $exists: true // $gte: 10
+      }
+    })
+    console.log('RESULT:', result);
+  }
 
 }

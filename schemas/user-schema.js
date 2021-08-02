@@ -15,6 +15,7 @@ const messagesSchema = mongoose.Schema({
 const userSchema = mongoose.Schema({
     email: reqString,
     username: reqString,
+    level: Number,
     password: reqString,
     messages: [messagesSchema],
     // messages: {
