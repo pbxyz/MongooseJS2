@@ -19,7 +19,9 @@ const connectToMongoDB = async () => {
       // await opsWithDBs.collectionNames()
       // await opsWithDBs.withMany()
       // await opsWithDBs.nestedDocuments()
-      await opsWithDBs.findQueries()
+      // await opsWithDBs.findQueries()
+      // await opsWithDBs.renamingRemovingFields()
+      await opsWithDBs.arrayOperators()
 
     } finally {
       setTimeout(() => { mongoose.connection.close(() => console.log('DB Disconnected')) }, 2500)
@@ -236,6 +238,54 @@ const opsWithDBs = {
       }
     })
     console.log('RESULT:', result);
+  },
+
+  renamingRemovingFields: async () => {
+    // await userSchema.updateMany({}, {
+    //   // not working ($unset: { pass: '' }) // $rename: { password: 'pass' }
+    // })
+    // const user = new userSchema()
+    // user.pass = undefined             not working
+    // await user.save()
+  },
+
+  arrayOperators: async () => {
+    // await new userSchema({
+    //   email: 'test1@email.com',
+    //   username: 'test 1',
+    //   password: 'password',
+    //   testScore: [85, 90, 77],
+    // }).save()
+
+    let result
+
+    // result = await userSchema.find({
+    //   testScore: {
+    //     $all: [100] // [85, 100] // , 90, 77],
+    //   }
+    // })
+
+    // result = await userSchema.find({
+    //   testScore: {
+    //     $all: [100] // [85, 100] // , 90, 77],
+    //   }
+    // })
+
+    // result = await userSchema.find({
+    //   testScore: {
+    //     $size: 4 // 3,
+    //   }
+    // })
+
+    result = await userSchema.find({
+      testScore: {
+        $elemMatch: {
+          $lte: 77 // $gt: 90
+        },
+      }
+    })
+
+    console.log('RESULT:', result)
   }
 
 }

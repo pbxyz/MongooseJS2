@@ -25,6 +25,7 @@ const userSchema = mongoose.Schema({
     //     max: 10
     // },
     nameHistory: [String],
+    testScore: [Number],
 }, {
     timestamps: true
 })
