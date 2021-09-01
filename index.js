@@ -21,7 +21,8 @@ const connectToMongoDB = async () => {
       // await opsWithDBs.nestedDocuments()
       // await opsWithDBs.findQueries()
       // await opsWithDBs.renamingRemovingFields()
-      await opsWithDBs.arrayOperators()
+      // await opsWithDBs.arrayOperators()
+      await opsWithDBs.primaryKeysUniqueIDs()
 
     } finally {
       setTimeout(() => { mongoose.connection.close(() => console.log('DB Disconnected')) }, 2500)
@@ -286,6 +287,15 @@ const opsWithDBs = {
     })
 
     console.log('RESULT:', result)
-  }
+  },
+
+  primaryKeysUniqueIDs: async () => {
+    await new userSchema({
+      _id: passGen(3, 5, 5, 1, 0),
+      email: 'test1@email.com',
+      username: 'test 1',
+      password: 'password',
+    }).save()
+  },
 
 }

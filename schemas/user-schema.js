@@ -13,6 +13,7 @@ const messagesSchema = mongoose.Schema({
 })
 
 const userSchema = mongoose.Schema({
+    _id: reqString,
     email: reqString,
     username: reqString,
     level: Number,
